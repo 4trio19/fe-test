@@ -5,11 +5,7 @@ export default function TableOuter() {
     <div>
       <table>
         <tbody>
-          <tr>
-            <td>
-              Table Placeholder
-            </td>
-          </tr>
+          Render selected group component
         </tbody>
       </table>
     </div>

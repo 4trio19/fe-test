@@ -12,6 +12,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [containers, setContainers] = useState([]);
   const [placements, setPlacements] = useState([]);
+  const [groupBy, setGroupBy] = useState("All Placements");
   
 
   // useEffect to get data into state
@@ -30,8 +31,8 @@ function App() {
 
   return (
     <div className="App">
-      <Select options={groupByOptions} />
-      <TableOuter />
+      <Select options={ groupByOptions } />
+      <TableOuter containers={ containers } placements={ placements } group={ groupBy } />
     </div>
   );
 }
