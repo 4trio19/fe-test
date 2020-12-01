@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import AllPlacementsTable from './AllPlacementsTable';
 
-export default function TableOuter() {
+export default function TableOuter(props) {
   return (
     <div>
       <table>
         <tbody>
-          Render selected group component
+          <AllPlacementsTable placements={ props.placements } />
         </tbody>
       </table>
     </div>
