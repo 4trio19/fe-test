@@ -33,7 +33,7 @@ function App() {
   // useEffect to get data into state
   useEffect(() => {
     setContainers(containerData);
-    setPlacements(placementData);
+    setPlacements(fullPlacements);
     return () => {
       setIsLoading(false);
     }
