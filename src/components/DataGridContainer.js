@@ -1,4 +1,3 @@
-import React from 'react';
 import AllPlacementsGrid from './AllPlacementsGrid';
 import AllContainersGrid from './AllContainersGrid';
 import GroupByContainerGrid from './GroupByContainerGrid';

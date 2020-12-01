@@ -16,8 +16,8 @@ export default function GroupByContainerGrid(props) {
     { field: 'rpm', headerName: 'RPM', width: 120 },
   ];
   return (
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} />
-      </div>
+    <div>
+      placeholder
+    </div>
   )
 }

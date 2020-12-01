@@ -8,28 +8,32 @@ import placementData from './data/placements.json';
 import { calculateCTR, calculateRPM } from './scripts/utils.js';
 
 
-function App() {
-
   //Add ctr and rpm to JSON and id so Material is happier
 
-  const fullPlacements = placementData.map((placement, i) => {
-    return ({ ...placement, 
-      ctr: calculateCTR(placement.clicks, placement.uniqueOpens),
-      rpm: calculateRPM(placement.estimatedRevenue, placement.uniqueOpens),
-      id: i
-    })
-  });
+  
 
-  const fullContainers = containerData.map((container, i) => {
-    return ({ ...container, 
-      ctr: calculateCTR(container.clicks, container.uniqueOpens),
-      rpm: calculateRPM(container.estimatedRevenue, container.uniqueOpens),
-      id: i
-    })
-  });
+const fullPlacements = placementData.map((placement, i) => {
+  return ({ ...placement, 
+    ctr: calculateCTR(placement.clicks, placement.uniqueOpens),
+    rpm: calculateRPM(placement.estimatedRevenue, placement.uniqueOpens),
+    id: i
+  })
+});
+
+const fullContainers = containerData.map((container, i) => {
+  return ({ ...container, 
+    ctr: calculateCTR(container.clicks, container.uniqueOpens),
+    rpm: calculateRPM(container.estimatedRevenue, container.uniqueOpens),
+    id: i
+  })
+});
+
+// store a list of options that the list can be grouped by
+const groupByOptions = ['allPlacements', 'allContainers', 'groupByContainer', 'groupByPlacement', 'groupByAdUnit'];
+
+function App() {
 
   // State stuff
-  const [isLoading, setIsLoading] = useState(true);
   const [containers, setContainers] = useState([]);
   const [placements, setPlacements] = useState([]);
   const [groupBy, setGroupBy] = useState("allPlacements");
@@ -38,15 +42,12 @@ function App() {
   // useEffect to get data into state
   useEffect(() => {
       setContainers(fullContainers);
+    }, [fullContainers]);
+
+
+    useEffect(() => {
       setPlacements(fullPlacements);
-      return () => {
-        setIsLoading(false);
-      };
-    }, [fullPlacements, fullContainers])
-
-
-  // store a list of options that the list can be grouped by
-  const groupByOptions = ['allPlacements', 'allContainers', 'groupByContainer', 'groupByPlacement', 'groupByAdUnit'];
+    }, [fullPlacements]);
 
   return (
     <div className="App">
