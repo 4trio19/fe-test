@@ -20,28 +20,33 @@ function App() {
     })
   });
 
-
-  console.log(fullPlacements);
+  const fullContainers = containerData.map((container, i) => {
+    return ({ ...container, 
+      ctr: calculateCTR(container.clicks, container.uniqueOpens),
+      rpm: calculateRPM(container.estimatedRevenue, container.uniqueOpens),
+      id: i
+    })
+  });
 
   // State stuff
   const [isLoading, setIsLoading] = useState(true);
   const [containers, setContainers] = useState([]);
   const [placements, setPlacements] = useState([]);
-  const [groupBy, setGroupBy] = useState("All Containers");
+  const [groupBy, setGroupBy] = useState("allPlacements");
   
 
   // useEffect to get data into state
   useEffect(() => {
-    setContainers(containerData);
-    setPlacements(fullPlacements);
-    return () => {
-      setIsLoading(false);
-    }
-  }, [])
+      setContainers(fullContainers);
+      setPlacements(fullPlacements);
+      return () => {
+        setIsLoading(false);
+      };
+    }, [fullPlacements, fullContainers])
 
 
   // store a list of options that the list can be grouped by
-  const groupByOptions = ['All Placements', 'All Containers'];
+  const groupByOptions = ['allPlacements', 'allContainers', 'groupByContainer', 'groupByPlacement', 'groupByAdUnit'];
 
   return (
     <div className="App">
