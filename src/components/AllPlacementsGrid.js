@@ -5,7 +5,7 @@ export default function AllPlacementsGrid(props) {
   console.log(props.placementsAggregated);
   const rows = props.placementsAggregated;
   const columns = [
-    { field: 'date2', headerName: 'Date', width: 180 },
+    { field: 'id', headerName: 'Date', width: 180 },
     { field: 'requestsTotal', headerName: 'Requests', width: 100 },
     { field: 'uniqueOpens', headerName: 'Unique Opens', width: 140 },
     { field: 'clicks', headerName: 'Clicks', width: 100 },

@@ -4,7 +4,7 @@ import { DataGrid } from '@material-ui/data-grid';
 export default function AllContainersGrid(props) {
   const rows = props.containersAggregated;
   const columns = [
-    { field: 'date2', headerName: 'Date', width: 180 },
+    { field: 'id', headerName: 'Date', width: 180 },
     { field: 'requestsTotal', headerName: 'Requests', width: 100 },
     { field: 'uniqueOpens', headerName: 'Unique Opens', width: 140 },
     { field: 'clicks', headerName: 'Clicks', width: 100 },
