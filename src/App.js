@@ -76,8 +76,14 @@ function App() {
   const [placements, setPlacements] = useState([]);
   const [placementsAggregated, setPlacementsAggregated] = useState([]);
   const [containersAggregated, setContainersAggregated] = useState([]);
-  const [groupBy, setGroupBy] = useState("allContainers");
+  const [groupBy, setGroupBy] = useState("allPlacements");
   
+  //update groupby
+
+  const updateView = (e) => {
+    return setGroupBy(e.target.value);
+  }
+
 
   // useEffect to get data into state
   useEffect(() => {
@@ -89,7 +95,7 @@ function App() {
 
   return (
     <div className="App">
-      <Select options={ groupByOptions } />
+      <Select options={ groupByOptions } groupBy={ groupBy } handleChange={ updateView } />
       <DateRange />
       <DataGridContainer containers={ containers } placements={ placements } placementsAggregated={ placementsAggregated } group={ groupBy } containersAggregated={ containersAggregated } />
     </div>
