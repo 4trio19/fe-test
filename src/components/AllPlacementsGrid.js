@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 
 export default function AllPlacementsGrid(props) {
-  console.log(props.placementsAggregrated);
-  const rows = props.placementsAggregrated;
+  console.log(props.placementsAggregated);
+  const rows = props.placementsAggregated;
   const columns = [
     { field: 'date2', headerName: 'Date', width: 180 },
     { field: 'requestsTotal', headerName: 'Requests', width: 100 },

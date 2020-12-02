@@ -43,8 +43,9 @@ fullContainers.map ((container) => {
 // store a list of options that the list can be grouped by
 const groupByOptions = ['allPlacements', 'allContainers', 'groupByContainer', 'groupByPlacement', 'groupByAdUnit'];
 const placementCollection = jsonAggregate.create(JSON.stringify(fullPlacements));
+const containerCollection = jsonAggregate.create(JSON.stringify(fullContainers));
 
-  const aggregratedPlacements = placementCollection.group({
+  const AggregatedPlacements = placementCollection.group({
   id: 'date',
   requestsTotal: { $sum: 'requestsTotal' },
   uniqueOpens: { $sum: 'uniqueOpens' },
@@ -54,27 +55,43 @@ const placementCollection = jsonAggregate.create(JSON.stringify(fullPlacements))
   rpm: { $avg: 'rpm' },
   date2: { $addToSet: 'date' }
 });
+
+
+const AggregatedContainers = containerCollection.group({
+  id: 'date',
+  requestsTotal: { $sum: 'requestsTotal' },
+  uniqueOpens: { $sum: 'uniqueOpens' },
+  clicks: { $sum: 'clicks' },
+  ctr: { $avg: 'ctr' },
+  estimatedRevenue: { $sum: 'estimatedRevenue' },
+  rpm: { $avg: 'rpm' },
+  date2: { $addToSet: 'date' }
+});
+
+
 function App() {
 
   // State stuff
   const [containers, setContainers] = useState([]);
   const [placements, setPlacements] = useState([]);
-  const [placementsAggregrated, setPlacementsAggregated] = useState([]);
-  const [groupBy, setGroupBy] = useState("allPlacements");
+  const [placementsAggregated, setPlacementsAggregated] = useState([]);
+  const [containersAggregated, setContainersAggregated] = useState([]);
+  const [groupBy, setGroupBy] = useState("allContainers");
   
 
   // useEffect to get data into state
   useEffect(() => {
       setPlacements(fullPlacements);
       setContainers(fullContainers);
-      setPlacementsAggregated(aggregratedPlacements.data);
-    }, [fullContainers, fullPlacements, aggregratedPlacements]);
+      setPlacementsAggregated(AggregatedPlacements.data);
+      setContainersAggregated(AggregatedContainers.data);
+    }, [fullContainers, fullPlacements, AggregatedPlacements]);
 
   return (
     <div className="App">
       <Select options={ groupByOptions } />
       <DateRange />
-      <DataGridContainer containers={ containers } placements={ placements } placementsAggregated={ placementsAggregrated } group={ groupBy } />
+      <DataGridContainer containers={ containers } placements={ placements } placementsAggregated={ placementsAggregated } group={ groupBy } containersAggregated={ containersAggregated } />
     </div>
   );
 }

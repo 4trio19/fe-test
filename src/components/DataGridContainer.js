@@ -10,21 +10,21 @@ export default function DataGridContainer(props) {
     case 'allContainers':
       return (
         <div className="grid-container">
-          <AllContainersGrid containers={containers} />
+          <AllContainersGrid containers={containers} containersAggregated={ props.containersAggregated } />
         </div>
       );
 
       case 'allPlacements':
       return (
         <div className="grid-container">
-          <AllPlacementsGrid placements={placements} placementsAggregrated={ props.placementsAggregated } />
+          <AllPlacementsGrid placements={placements} placementsAggregated={ props.placementsAggregated } />
         </div>
       );
 
       case 'groupByContainer':
       return (
         <div className="grid-container">
-          <GroupByContainerGrid containers={containers} />
+          <GroupByContainerGrid containers={props.containersAggregated} />
         </div>
       );
 
