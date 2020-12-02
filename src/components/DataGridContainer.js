@@ -6,8 +6,6 @@ import GroupByAdUnitGrid from './GroupByAdUnitGrid';
 
 export default function DataGridContainer(props) {
   const { group, placements, containers } = props;
-
-
   switch (group) {
     case 'allContainers':
       return (
@@ -19,7 +17,7 @@ export default function DataGridContainer(props) {
       case 'allPlacements':
       return (
         <div className="grid-container">
-          <AllPlacementsGrid placements={placements} />
+          <AllPlacementsGrid placements={placements} placementsAggregrated={ props.placementsAggregated } />
         </div>
       );
 

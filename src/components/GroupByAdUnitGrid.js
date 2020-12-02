@@ -2,7 +2,7 @@ import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 
 export default function GroupByAdUnitGrid(props) {
-  const placements = props.placements;
+  const placements = props.placementsAggregated.data;
 
   const rows = placements;
   
