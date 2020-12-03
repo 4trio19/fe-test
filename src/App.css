@@ -32,3 +32,12 @@
   max-width: 1080px;
   margin: 20px auto;
 }
+
+.date-picker-container {
+  padding: 1rem;
+}
+
+.date-picker-container > input {
+  padding: 0.6rem;
+  margin-left: 10px;
+}

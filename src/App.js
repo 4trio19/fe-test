@@ -68,7 +68,16 @@ const AggregatedContainers = containerCollection.group({
   date2: { $addToSet: 'date' }
 });
 
+const cleanDate = (dirtyDate) => {
+  let isoDate = dirtyDate.toISOString();
+  let cleanDate = isoDate.slice(0, 10);
+  return cleanDate;
+}
 
+
+
+const cleanToday = cleanDate(new Date());
+console.log(cleanToday);
 function App() {
 
   // State stuff
@@ -77,13 +86,22 @@ function App() {
   const [placementsAggregated, setPlacementsAggregated] = useState([]);
   const [containersAggregated, setContainersAggregated] = useState([]);
   const [groupBy, setGroupBy] = useState("allPlacements");
-  
+  const [startDate, setStartDate] = useState("2000-01-01");
+  const [endDate, setEndDate] = useState(cleanToday);
+
   //update groupby
 
   const updateView = (e) => {
     return setGroupBy(e.target.value);
   }
 
+  const updateStartDate = (e) => {
+    return setStartDate(e.target.value);
+  }
+
+  const updateEndDate = (e) => {
+    return setEndDate(e.target.value);
+  }
 
   // useEffect to get data into state
   useEffect(() => {
@@ -96,7 +114,7 @@ function App() {
   return (
     <div className="App">
       <Select options={ groupByOptions } groupBy={ groupBy } handleChange={ updateView } />
-      <DateRange />
+      <DateRange handleStartChange={ updateStartDate } handleEndChange={ updateEndDate } startDate={ startDate } endDate={ endDate } />
       <DataGridContainer containers={ containers } placements={ placements } placementsAggregated={ placementsAggregated } group={ groupBy } containersAggregated={ containersAggregated } />
     </div>
   );
