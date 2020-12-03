@@ -24,7 +24,7 @@ export default function DataGridContainer(props) {
       case 'groupByContainer':
       return (
         <div className="grid-container">
-          <GroupByContainerGrid containers={props.containersAggregated} />
+          <GroupByContainerGrid containers={props.containersAggregated} containersAggregatedByContainer={ props.containersAggregatedByContainer } startDate={ props.startDate } endDate={ props.endDate } />
         </div>
       );
 
