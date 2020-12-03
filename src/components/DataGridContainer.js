@@ -10,7 +10,7 @@ export default function DataGridContainer(props) {
     case 'allContainers':
       return (
         <div className="grid-container">
-          <AllContainersGrid containers={containers} containersAggregated={ props.containersAggregated } />
+          <AllContainersGrid containers={containers} containersAggregated={ props.containersAggregated } startDate={ props.startDate } endDate={ props.endDate } />
         </div>
       );
 

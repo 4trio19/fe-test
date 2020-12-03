@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import { filterDate } from '../scripts/utils'
+import { filterDate } from '../scripts/utils';
 
 export default function AllPlacementsGrid(props) {
-  console.log(props.startDate, props.endDate);
   const rows = filterDate(props.startDate, props.endDate, props.placementsAggregated, 'id');
   const columns = [
     { field: 'id', headerName: 'Date', width: 180 },

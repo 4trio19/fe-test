@@ -81,7 +81,7 @@ function App() {
   const [placementsAggregated, setPlacementsAggregated] = useState([]);
   const [containersAggregated, setContainersAggregated] = useState([]);
   const [groupBy, setGroupBy] = useState("allPlacements");
-  const [startDate, setStartDate] = useState("2000-01-01");
+  const [startDate, setStartDate] = useState("2019-01-01");
   const [endDate, setEndDate] = useState(cleanToday);
 
   //update groupby
