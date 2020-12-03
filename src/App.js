@@ -43,6 +43,7 @@ const groupByOptions = ['allPlacements', 'allContainers', 'groupByContainer', 'g
 const placementCollection = jsonAggregate.create(JSON.stringify(fullPlacements));
 const containerCollection = jsonAggregate.create(JSON.stringify(fullContainers));
 const containerByContainerCollection = jsonAggregate.create(JSON.stringify(fullContainers));
+const placementByPlacementCollection = jsonAggregate.create(JSON.stringify(fullPlacements));
 
   const AggregatedPlacements = placementCollection.group({
   id: 'date',
@@ -79,6 +80,17 @@ const AggregatedContainersByContainer = containerByContainerCollection.group({
   containerName: { $addToSet: 'containerName' }
 });
 
+const AggregatedPlacementsByPlacement = placementByPlacementCollection.group({
+  id: 'placementId',
+  requestsTotal: { $sum: 'requestsTotal' },
+  uniqueOpens: { $sum: 'uniqueOpens' },
+  clicks: { $sum: 'clicks' },
+  ctr: { $avg: 'ctr' },
+  estimatedRevenue: { $sum: 'estimatedRevenue' },
+  rpm: { $avg: 'rpm' },
+  placementName: { $addToSet: 'placementName' }
+});
+
 
 
 const cleanDate = (dirtyDate) => {
@@ -96,6 +108,7 @@ function App() {
   const [placementsAggregated, setPlacementsAggregated] = useState([]);
   const [containersAggregated, setContainersAggregated] = useState([]);
   const [containersAggregatedByContainer, setContainersAggregatedByContainer] = useState([]);
+  const [placementsAggregatedByPlacement, setPlacementsAggregatedByPlacement] = useState([]);
   const [groupBy, setGroupBy] = useState("allPlacements");
   const [startDate, setStartDate] = useState("2019-01-01");
   const [endDate, setEndDate] = useState(cleanToday);
@@ -121,13 +134,14 @@ function App() {
       setPlacementsAggregated(AggregatedPlacements.data);
       setContainersAggregated(AggregatedContainers.data);
       setContainersAggregatedByContainer(AggregatedContainersByContainer.data);
+      setPlacementsAggregatedByPlacement(AggregatedPlacementsByPlacement.data);
     }, [fullContainers, fullPlacements, AggregatedPlacements, AggregatedContainers, AggregatedContainersByContainer]);
 
   return (
     <div className="App">
       <Select options={ groupByOptions } groupBy={ groupBy } handleChange={ updateView } />
       <DateRange handleStartChange={ updateStartDate } handleEndChange={ updateEndDate } startDate={ startDate } endDate={ endDate } />
-      <DataGridContainer containers={ containers } placements={ placements } placementsAggregated={ placementsAggregated } group={ groupBy } containersAggregated={ containersAggregated } startDate={ startDate } endDate={ endDate } containersAggregatedByContainer={ containersAggregatedByContainer } />
+      <DataGridContainer containers={ containers } placements={ placements } placementsAggregated={ placementsAggregated } group={ groupBy } containersAggregated={ containersAggregated } startDate={ startDate } endDate={ endDate } containersAggregatedByContainer={ containersAggregatedByContainer } placementsAggregatedByPlacement={ placementsAggregatedByPlacement } />
     </div>
   );
 }

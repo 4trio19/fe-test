@@ -31,7 +31,7 @@ export default function DataGridContainer(props) {
       case 'groupByPlacement':
       return (
         <div className="grid-container">
-          <GroupByPlacementGrid placements={placements} />
+          <GroupByPlacementGrid placements={placements} placementsAggregatedByPlacement={ props.placementsAggregatedByPlacement } startDate={ props.startDate } endDate={ props.endDate } />
         </div>
       );
 
