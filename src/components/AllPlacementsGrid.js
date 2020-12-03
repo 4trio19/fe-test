@@ -15,6 +15,7 @@ export default function AllPlacementsGrid(props) {
   ];
   return (
       <div style={{ height: 600, width: '100%' }}>
+        <p>All Placements  - Events from a single day have been combined into 1 row with aggregate values</p>
         <DataGrid rows={rows} columns={columns} />
       </div>
   )
