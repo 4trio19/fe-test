@@ -5,7 +5,7 @@ import DateRange from './components/DateRange';
 import DataGridContainer from './components/DataGridContainer';
 import containerData from './data/containers.json';
 import placementData from './data/placements.json';
-import { calculateCTR, calculateRPM } from './scripts/utils.js';
+import { calculateCTR, calculateRPM, filterDate } from './scripts/utils.js';
 const jsonAggregate = require('json-aggregate');
 
   //Add ctr and rpm to JSON and id so Material is happier
@@ -37,8 +37,6 @@ fullContainers.map ((container) => {
   const dayDate = container["date"].slice(0, 10);
   return container["date"] = dayDate;
 });
-
-
 
 // store a list of options that the list can be grouped by
 const groupByOptions = ['allPlacements', 'allContainers', 'groupByContainer', 'groupByPlacement', 'groupByAdUnit'];
@@ -73,11 +71,8 @@ const cleanDate = (dirtyDate) => {
   let cleanDate = isoDate.slice(0, 10);
   return cleanDate;
 }
-
-
-
 const cleanToday = cleanDate(new Date());
-console.log(cleanToday);
+
 function App() {
 
   // State stuff
@@ -115,7 +110,7 @@ function App() {
     <div className="App">
       <Select options={ groupByOptions } groupBy={ groupBy } handleChange={ updateView } />
       <DateRange handleStartChange={ updateStartDate } handleEndChange={ updateEndDate } startDate={ startDate } endDate={ endDate } />
-      <DataGridContainer containers={ containers } placements={ placements } placementsAggregated={ placementsAggregated } group={ groupBy } containersAggregated={ containersAggregated } />
+      <DataGridContainer containers={ containers } placements={ placements } placementsAggregated={ placementsAggregated } group={ groupBy } containersAggregated={ containersAggregated } startDate={ startDate } endDate={ endDate } />
     </div>
   );
 }
