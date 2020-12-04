@@ -5,13 +5,13 @@ import DateRange from './components/DateRange';
 import DataGridContainer from './components/DataGridContainer';
 import containerData from './data/containers.json';
 import placementData from './data/placements.json';
-import { calculateCTR, calculateRPM, filterDate } from './scripts/utils.js';
+import { calculateCTR, calculateRPM, filterDate, cleanDate } from './scripts/utils.js';
 const jsonAggregate = require('json-aggregate');
 
-  //Add ctr and rpm to JSON and id so Material is happier
 
-  
+const cleanToday = cleanDate(new Date());
 
+//Add ctr and rpm to JSON and id so Material is happier
 const fullPlacements = placementData.map((placement, i) => {
   return ({ ...placement, 
     ctr: calculateCTR(placement.clicks, placement.uniqueOpens),
@@ -28,6 +28,8 @@ const fullContainers = containerData.map((container, i) => {
   })
 });
 
+
+//Clean up date for grouping
 fullPlacements.map ((placement) => {
   const dayDate = placement["date"].slice(0, 10);
   return placement["date"] = dayDate;
@@ -46,6 +48,8 @@ const containerByContainerCollection = jsonAggregate.create(JSON.stringify(fullC
 const placementByPlacementCollection = jsonAggregate.create(JSON.stringify(fullPlacements));
 const placementByAdUnitCollection = jsonAggregate.create(JSON.stringify(fullPlacements));
 
+//Create groups
+
   const AggregatedPlacements = placementCollection.group({
   id: 'date',
   requestsTotal: { $sum: 'requestsTotal' },
@@ -57,7 +61,6 @@ const placementByAdUnitCollection = jsonAggregate.create(JSON.stringify(fullPlac
   date2: { $addToSet: 'date' }
 });
 
-console.log(containerCollection);
 
 const AggregatedContainers = containerCollection.group({
   id: 'date',
@@ -104,14 +107,6 @@ const AggregatedPlacementsByAdUnit = placementByAdUnitCollection.group({
 });
 
 
-
-const cleanDate = (dirtyDate) => {
-  let isoDate = dirtyDate.toISOString();
-  let cleanDate = isoDate.slice(0, 10);
-  return cleanDate;
-}
-const cleanToday = cleanDate(new Date());
-
 function App() {
 
   // State stuff
@@ -126,7 +121,7 @@ function App() {
   const [startDate, setStartDate] = useState("2019-01-01");
   const [endDate, setEndDate] = useState(cleanToday);
 
-  //update groupby
+  //functions for updating state
 
   const updateView = (e) => {
     return setGroupBy(e.target.value);

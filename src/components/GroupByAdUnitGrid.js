@@ -1,6 +1,6 @@
 import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-
+const jsonAggregate = require('json-aggregate');
 export default function GroupByAdUnitGrid(props) {
   const placements = props.placementsAggregatedByAdUnit;
 

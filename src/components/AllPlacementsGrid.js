@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { filterDate } from '../scripts/utils';
 

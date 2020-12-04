@@ -11,3 +11,9 @@ export function filterDate (start, end, array, key) {
       return item[key] >= start && item[key] <= end;
   });
 }
+
+export const cleanDate = (dirtyDate) => {
+  let isoDate = dirtyDate.toISOString();
+  let cleanDate = isoDate.slice(0, 10);
+  return cleanDate;
+}
