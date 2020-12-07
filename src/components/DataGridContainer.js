@@ -10,14 +10,14 @@ export default function DataGridContainer(props) {
     case 'allContainers':
       return (
         <div className="grid-container">
-          <AllContainersGrid containers={containers} containersAggregated={ props.containersAggregated } startDate={ props.startDate } endDate={ props.endDate } />
+          <AllContainersGrid containers={containers} startDate={ props.startDate } endDate={ props.endDate } />
         </div>
       );
 
       case 'allPlacements':
       return (
         <div className="grid-container">
-          <AllPlacementsGrid placements={placements} placementsAggregated={ props.placementsAggregated } startDate={ props.startDate } endDate={ props.endDate } />
+          <AllPlacementsGrid placements={props.placementsAggregated} startDate={ props.startDate } endDate={ props.endDate } />
         </div>
       );
 

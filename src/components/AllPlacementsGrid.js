@@ -2,8 +2,12 @@ import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { filterDate } from '../scripts/utils';
 
+const jsonAggregate = require('json-aggregate');
+
 export default function AllPlacementsGrid(props) {
-  const rows = filterDate(props.startDate, props.endDate, props.placementsAggregated, 'id');
+
+  const rows = filterDate(props.startDate, props.endDate, props.placements, 'id');
+
   const columns = [
     { field: 'id', headerName: 'Date', width: 180 },
     { field: 'requestsTotal', headerName: 'Requests', width: 100 },
@@ -15,7 +19,7 @@ export default function AllPlacementsGrid(props) {
   ];
   return (
       <div style={{ height: 600, width: '100%' }}>
-        <p>All Placements  - Events from a single day have been combined into 1 row with aggregate values</p>
+        <p>All Placements - Events from a single day have been combined into 1 row with aggregate values</p>
         <DataGrid rows={rows} columns={columns} />
       </div>
   )
