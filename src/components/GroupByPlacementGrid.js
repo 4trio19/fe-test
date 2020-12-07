@@ -1,8 +1,24 @@
 import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
+import { filterDate } from '../scripts/utils';
+const jsonAggregate = require('json-aggregate');
 
-export default function GroupByContainerGrid(props) {
-  const rows = props.placementsAggregatedByPlacement;
+export default function GroupByPlacementGrid(props) {
+  
+  const placementByPlacementCollection = jsonAggregate.create(JSON.stringify(filterDate(props.startDate, props.endDate, props.placements, 'date')));
+
+  const placements = placementByPlacementCollection.group({
+    id: 'placementId',
+    requestsTotal: { $sum: 'requestsTotal' },
+    uniqueOpens: { $sum: 'uniqueOpens' },
+    clicks: { $sum: 'clicks' },
+    ctr: { $avg: 'ctr' },
+    estimatedRevenue: { $sum: 'estimatedRevenue' },
+    rpm: { $avg: 'rpm' },
+    placementName: { $addToSet: 'placementName' }
+  });
+
+  const rows = placements.data;
   const columns = [
     { field: 'id', headerName: 'Placement ID', width: 140 },
     { field: 'placementName', headerName: 'Name', width: 120 },

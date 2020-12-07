@@ -24,21 +24,21 @@ export default function DataGridContainer(props) {
       case 'groupByContainer':
       return (
         <div className="grid-container">
-          <GroupByContainerGrid containers={props.containersAggregated} containersAggregatedByContainer={ props.containersAggregatedByContainer } startDate={ props.startDate } endDate={ props.endDate } />
+          <GroupByContainerGrid containers={containers} startDate={ props.startDate } endDate={ props.endDate } />
         </div>
       );
 
       case 'groupByPlacement':
       return (
         <div className="grid-container">
-          <GroupByPlacementGrid placements={placements} placementsAggregatedByPlacement={ props.placementsAggregatedByPlacement } startDate={ props.startDate } endDate={ props.endDate } />
+          <GroupByPlacementGrid placements={placements} startDate={ props.startDate } endDate={ props.endDate } />
         </div>
       );
 
       case 'groupByAdUnit':
       return (
         <div className="grid-container">
-          <GroupByAdUnitGrid placements={placements} placementsAggregatedByAdUnit={ props.placementsAggregatedByAdUnit } startDate={ props.startDate } endDate={ props.endDate } />
+          <GroupByAdUnitGrid placements={placements} startDate={ props.startDate } endDate={ props.endDate } />
         </div>
       );
   

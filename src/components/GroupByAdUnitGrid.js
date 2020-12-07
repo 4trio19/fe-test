@@ -1,10 +1,21 @@
 import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
+import { filterDate } from '../scripts/utils';
 const jsonAggregate = require('json-aggregate');
 export default function GroupByAdUnitGrid(props) {
-  const placements = props.placementsAggregatedByAdUnit;
+  const placementByAdUnitCollection = jsonAggregate.create(JSON.stringify(filterDate(props.startDate, props.endDate, props.placements, 'date')));
 
-  const rows = placements;
+  const placements = placementByAdUnitCollection.group({
+    id: 'adUnitSize',
+    requestsTotal: { $sum: 'requestsTotal' },
+    uniqueOpens: { $sum: 'uniqueOpens' },
+    clicks: { $sum: 'clicks' },
+    ctr: { $avg: 'ctr' },
+    estimatedRevenue: { $sum: 'estimatedRevenue' },
+    rpm: { $avg: 'rpm' },
+    placementName: { $addToSet: 'placementName' }
+  });
+  const rows = placements.data;
   
   const columns = [
     { field: 'id', headerName: 'Ad Unit', width: 200 },
